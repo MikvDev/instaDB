@@ -1,6 +1,6 @@
 // 2 modelos
 
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
 import { } from 'typeorm'
 
 import { Post } from "./Post"
@@ -16,4 +16,8 @@ export class User {
     email: string
     @Column({select: false , nullable: false})
     password: string
+
+    // indeica que um usuario pode ter mais de um post 
+    @OneToMany(() => Post, post => post.user)
+    posts: Post[] 
 }
