@@ -1,6 +1,6 @@
 // 2 modelos
 
-import { Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { } from 'typeorm'
 
 import { Post } from "./Post"
