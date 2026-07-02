@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { UserService } from "../services/UserServices";
 
-export class userController{
+export class UserController{
     async list(req: Request, res: Response, next: NextFunction){
         try{
             // è papel do controller chamar os metosos que criamos na camada services
