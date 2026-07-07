@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { json } from "node:stream/consumers";
 // Se name, email, password foram preenchioos corretamente
-export function ValidadeUser(req: Request, res: Response, next: NextFunction){
+export function ValidateUser(req: Request, res: Response, next: NextFunction){
     const {name, email, password} = req.body   
     if(!name || !email || !password){
         return res.status(400).json({

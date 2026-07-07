@@ -17,4 +17,8 @@ export const UserRepository = {
         const user = repo.create(data)
         return repo.save(user)
     },
+    
+    async delete(id: number){
+        return repo.delete(id)//1
+    }
 }

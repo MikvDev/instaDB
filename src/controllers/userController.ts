@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { UserService } from "../services/UserServices";
+import { json } from "node:stream/consumers";
 
-export class UserController{
+export class UserController {
     async list(req: Request, res: Response, next: NextFunction){
         try{
             // è papel do controller chamar os metosos que criamos na camada services
@@ -32,5 +33,28 @@ export class UserController{
             next(error)
         }
 
+    }
+    async update(req: Request, res: Response, next: NextFunction){
+        try {
+            const id = Number(req.params.id)
+            const {name, email, password} = req.body
+            const user = await UserService.Update(id, {name, email, password})
+            return res.status(200).json({
+                message: "Usuario atualizado com sucesso!"
+            })
+        }catch(error){
+            next(error)
+        }
+    }
+    async Delete(req: Request, res: Response, next: NextFunction){
+        try {
+            const id  = Number(req.params.id)
+            const user = await UserService.Delete(id)
+            return res.status(200).json({
+                message: "Usuario foi pro vinagre!"
+            })
+        } catch (error) {
+            next(error)//3
+        }
     }
 }

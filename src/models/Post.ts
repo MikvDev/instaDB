@@ -6,8 +6,7 @@ export class Post {
     @PrimaryGeneratedColumn()
     id: number
     @Column({type: 'varchar',  length: 100, nullable: false})
-    tittle: string
-
+    title: string
     @ManyToOne(() => User, (user) => user.posts)
     user: User;
 }
