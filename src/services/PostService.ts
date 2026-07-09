@@ -25,7 +25,7 @@ export const PostService = {
         const post = await PostRepository.findOne(id);
 
         if(!post) throw new NotFoundError("Post não encontrado!")
-        if(data.title) post.titlgge = data.title;
+        if(data.title) post.title = data.title;
        
         const updatedPost = await PostRepository.create(post)
         return updatedPost
