@@ -16,6 +16,10 @@ export const PostRepository = {
     async findOne(id: number){
         return repo.findOne({where: {id}, relations: ['user']})
     },
+    async findByUserId(userId: number){
+        return repo.find({where: {user: {id: userId}}, relations: ['user']})
+    
+    },
     async delete(id: number){
         return repo.delete(id)
     }

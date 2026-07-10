@@ -41,7 +41,11 @@ export const PostService = {
 
         return post
 
-    }
+    },
+    
+  async ListMyPosts(userId: number){
+    return PostRepository.findByUserId(userId)
+  }
 
 
 

@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import { UserRepository } from "../repositories/UserRepository";
 import { omitPassword } from "../utils/omitPassword";
 import { generateToken } from "../utils/jwt";
+import { PostRepository } from "../repositories/PostRepository";
 // Aqui estamos criadno uma classe de erro
 export class NotFoundError extends Error {}
 
@@ -78,5 +79,5 @@ export const UserService = {
       user: omitPassword(user), 
       token
     }
-  }
+  },
 }

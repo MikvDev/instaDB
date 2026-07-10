@@ -7,8 +7,10 @@ import { ValidateUser } from "../middlewares/ValidateUser";
 export const routes  = Router() // Cria o objeto das rotas do express(necessario para criar as rotas)const userController = new UserController() 
 const userController = new UserController() 
 
-routes.get("/users", userController.list.bind(userController))
-routes.get("/users/:id", userController.getById.bind(userController))
-routes.post("/users",ValidateUser, userController.create.bind(userController))
-routes.put("/users/:id", userController.update.bind(userController))
-routes.delete("/users/:id", userController.Delete.bind(userController))//4
+routes.get("/", userController.list.bind(userController))
+routes.get("/:id", userController.getById.bind(userController))
+routes.post("/",ValidateUser, userController.create.bind(userController))
+routes.put("/:id", userController.update.bind(userController))
+routes.delete("/:id", userController.Delete.bind(userController))//4
+
+export default routes

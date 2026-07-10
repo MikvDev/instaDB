@@ -65,4 +65,14 @@ export class PostController  {
             next(error)
         }
     }
+    async listMyPosts(req: Request, res: Response, next: NextFunction){
+        try{
+            const loggedUser = (req as any).user
+            const myPosts = await PostService.ListMyPosts(loggedUser.id)
+            return  res.status(200).json(myPosts)
+        }catch(error){
+            next(error)
+        }
+    
+    }
 }
