@@ -14,7 +14,7 @@ export class User {
     name: string
     @Column({length: 100, unique: true, nullable: false})
     email: string
-    @Column({select: false , nullable: false})
+    @Column({  nullable: false})
     password: string
 
     // indeica que um usuario pode ter mais de um post 

@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 
 import { UserRepository } from "../repositories/UserRepository";
 import { omitPassword } from "../utils/omitPassword";
+import { generateToken } from "../utils/jwt";
 // Aqui estamos criadno uma classe de erro
 export class NotFoundError extends Error {}
 
@@ -52,18 +53,30 @@ export const UserService = {
 
   },
   async Login(data: {email: string, password: string}){
-      // Verificamos se o email existe 
-    // Precimaos do await já que o metodo findByEmail() é async 
-    const user = await UserRepository.findById(data.email)
+    // 1. Verificamos se o email existe 
+    const user = await UserRepository.findByEmail(data.email)
 
-    
-    // Verifica se a sneha esta correta
-    // data.password pega a senha que enviamos como parametro
-    // user.password pega a senha que está no objeto user, que é usuário que encontramos com o metodo findbyEmail, que retorna um user
+    // CORREÇÃO 1: Valida primeiro se o usuário existe antes de passar pro bcrypt.
+    // Isso evita o erro "Cannot read properties of null (reading 'password')"
+    if (!user) {
+      throw new NotFoundError("Informações incorretas!");
+    }
+
+    // CORREÇÃO 2: Certifique-se de que o método 'findByEmail' traz a coluna 'password'.
+    // Agora que temos certeza de que 'user' existe, comparamos a senha com segurança.
     const isValid = await bcrypt.compare(data.password, user.password)
 
-    // Note que não diferencimaos para proteger contra possiveis invasões 
-    if(!user || !password) throw new NotFoundError("Informações incorretas!")
-
+    // Verifica se a senha é válida
+    if (!isValid) {
+      throw new NotFoundError("Informações incorretas!");
+    }
+    
+    const token = generateToken({id: user.id, email: user.email})
+    console.log(token)
+    
+    return {
+      user: omitPassword(user), 
+      token
+    }
   }
-};
+}
